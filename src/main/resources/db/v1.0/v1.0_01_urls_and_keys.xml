@@ -1,0 +1,32 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <property name="now" value="now()" dbms="postgresql"/>
+
+    <changeSet id="01" author="shortUrl">
+        <createTable tableName="urls">
+            <column name="short_url" type="VARCHAR">
+                <constraints primaryKey="true" primaryKeyName="url_pkey"/>
+            </column>
+            <column name="original_url" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="TIMESTAMP" defaultValueComputed="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_expired" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="02" author="shortUrl">
+        <createTable tableName="keys">
+            <column name="key" type="VARCHAR">
+                <constraints primaryKey="true" primaryKeyName="keys_pkey"/>
+            </column>
+            <column name="free" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

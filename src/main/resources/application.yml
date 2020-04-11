@@ -1,0 +1,53 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres/db
+    username: dbuser
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: true
+  liquibase:
+    enabled: true
+    contexts: local
+    change-log: classpath:/db/changelog.xml
+
+  session:
+    store-type: none
+
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+    default-property-inclusion: NON_NULL
+
+logging.level:
+  ROOT: INFO
+  org.springframework: INFO
+
+management:
+  endpoints:
+    health:
+      show-details: always
+    web:
+      exposure:
+        include: health,info,metrics
+
+info:
+  app:
+    version: '@project.version@'
+    name: '@project.name@'
+
+keys:
+  capacity: 1000
+  expiration:
+    days: 180
+  update:
+    delay: 600_000
+  check:
+    expired: 0 30 0 * * ?

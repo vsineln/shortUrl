@@ -1,0 +1,16 @@
+version: "3"
+services:
+  postgres:
+    build: postgres
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    ports:
+      - 5432:5432
+  spring-boot-containers:
+    build: ../
+    ports:
+      - "8081:8081"
+    links:
+      - postgres
